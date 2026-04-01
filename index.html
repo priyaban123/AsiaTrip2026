@@ -1,0 +1,589 @@
+<\!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asia Trip · Apr 1–13, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1714;
+  --paper: #f7f4ee;
+  --muted: #8a8070;
+  --accent-taipei: #0d9488;
+  --accent-tokyo: #3730a3;
+  --accent-kyoto: #be123c;
+  --accent-transit: #7d6e83;
+  --gold: #b8965a;
+  --green: #16a34a;
+  --card-bg: #ffffff;
+  --border: rgba(26,23,20,0.1);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 300; min-height: 100vh; }
+
+header {
+  background: var(--ink); color: var(--paper);
+  padding: 3rem 2rem 2.5rem; text-align: center; position: relative; overflow: hidden;
+}
+header::before {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(255,255,255,0.015) 40px, rgba(255,255,255,0.015) 80px);
+}
+.header-eyebrow { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; position: relative; }
+header h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2.2rem, 5vw, 3.5rem); letter-spacing: 0.02em; line-height: 1.1; position: relative; }
+header h1 em { font-style: italic; color: var(--gold); }
+.header-sub { font-size: 0.8rem; color: rgba(247,244,238,0.5); margin-top: 0.75rem; letter-spacing: 0.12em; position: relative; }
+
+.tabs { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.08); display: flex; overflow-x: auto; position: sticky; top: 0; z-index: 50; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { padding: 0.85rem 1.4rem; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(247,244,238,0.5); cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; }
+.tab:hover { color: rgba(247,244,238,0.85); }
+.tab.active { color: var(--paper); border-bottom-color: var(--gold); }
+
+main { max-width: 960px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+
+.city-section { display: none; animation: fadeUp 0.35s ease; }
+.city-section.active { display: block; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.city-hero { display: flex; align-items: flex-start; gap: 1rem; padding: 1.75rem 0 1.25rem; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
+.city-accent-bar { width: 4px; border-radius: 4px; min-height: 60px; align-self: stretch; }
+.bar-taipei  { background: var(--accent-taipei); }
+.bar-tokyo   { background: var(--accent-tokyo); }
+.bar-kyoto   { background: var(--accent-kyoto); }
+.bar-transit { background: var(--accent-transit); }
+.city-hero-text h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(1.8rem, 4vw, 2.5rem); line-height: 1.1; }
+.city-hero-text h2 em { font-style: italic; }
+.city-dates { font-size: 0.82rem; color: var(--muted); margin-top: 0.35rem; letter-spacing: 0.03em; }
+
+.weather-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem 1.4rem; margin-bottom: 1rem; }
+.weather-card-title { font-size: 0.67rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
+.weather-card-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.weather-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.85rem; margin-bottom: 0.85rem; }
+.wx-item { background: var(--paper); border-radius: 8px; padding: 0.75rem 0.9rem; }
+.wx-top { display: flex; align-items: baseline; gap: 0.4rem; margin-bottom: 0.25rem; }
+.wx-icon { font-size: 1rem; }
+.wx-temp { font-size: 1rem; font-weight: 400; color: var(--ink); }
+.wx-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+.wx-detail { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; }
+.wx-tip { font-size: 0.78rem; color: var(--muted); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 0.75rem; }
+.wx-tip strong { color: var(--ink); }
+
+.hotel-chip { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.8rem; color: var(--muted); background: var(--card-bg); border: 1px solid var(--border); border-radius: 2rem; padding: 0.35rem 0.85rem; margin-bottom: 1.5rem; text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+.hotel-chip:hover { border-color: var(--ink); color: var(--ink); }
+
+.section-label { font-size: 0.67rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); display: flex; align-items: center; gap: 0.6rem; margin: 1.75rem 0 0.9rem; }
+.section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.day-block { margin-bottom: 2rem; }
+.day-block-header { display: flex; align-items: baseline; gap: 0.75rem; margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); }
+.day-pill { font-size: 0.7rem; color: var(--muted); border: 1px solid var(--border); border-radius: 2rem; padding: 0.2rem 0.65rem; white-space: nowrap; }
+.day-block-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 400; color: var(--ink); }
+
+.timeline { position: relative; padding-left: 2rem; }
+.timeline::before { content: ''; position: absolute; left: 0.55rem; top: 0.4rem; bottom: 0; width: 1px; background: var(--border); }
+.tl-item { position: relative; padding-bottom: 1.4rem; }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-item::before { content: ''; position: absolute; left: -1.55rem; top: 0.38rem; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); border: 2px solid var(--paper); box-shadow: 0 0 0 1px var(--gold); }
+.tl-time { font-size: 0.67rem; font-weight: 500; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.2rem; }
+.tl-title { font-size: 0.9rem; font-weight: 500; color: var(--ink); margin-bottom: 0.2rem; }
+.tl-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+.tl-res { font-size: 0.67rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--green); background: rgba(22,163,74,0.08); padding: 0.2rem 0.6rem; border-radius: 2rem; display: inline-block; margin-top: 0.35rem; }
+
+.transport-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.9rem 1.1rem; margin-top: 0.5rem; font-size: 0.8rem; color: var(--muted); line-height: 1.7; }
+.transport-box strong { color: var(--ink); }
+.transport-box .route { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 400; color: var(--ink); margin-bottom: 0.35rem; }
+
+.city-divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+.ov-weather-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 1.5rem; }
+.ov-wx-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem; display: flex; gap: 0.75rem; align-items: flex-start; }
+.ov-wx-flag { font-size: 1.5rem; line-height: 1; }
+.ov-wx-city { font-size: 0.85rem; font-weight: 500; color: var(--ink); }
+.ov-wx-dates { font-size: 0.7rem; color: var(--muted); margin-top: 0.15rem; }
+.ov-wx-temp { font-size: 0.85rem; font-weight: 400; color: var(--ink); margin-top: 0.35rem; }
+.ov-wx-desc { font-size: 0.73rem; color: var(--muted); margin-top: 0.15rem; line-height: 1.5; }
+
+.overview-grid { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.ov-row { display: grid; grid-template-columns: 120px 1fr 70px; gap: 0.5rem; padding: 0.85rem 1.1rem; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.15s; align-items: center; }
+.ov-row:last-child { border-bottom: none; }
+.ov-row:hover { background: var(--paper); }
+.ov-date { font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
+.ov-city { font-size: 0.85rem; font-weight: 400; color: var(--ink); }
+.ov-desc { font-size: 0.73rem; color: var(--muted); margin-top: 0.15rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ov-dot-wrap { display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem; }
+.ov-wx { font-size: 0.7rem; color: var(--muted); white-space: nowrap; }
+.ov-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.dot-taipei  { background: var(--accent-taipei); }
+.dot-tokyo   { background: var(--accent-tokyo); }
+.dot-kyoto   { background: var(--accent-kyoto); }
+.dot-transit { background: var(--accent-transit); }
+
+.flight-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem 1.4rem; margin-bottom: 1rem; }
+.flight-route { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; margin-bottom: 0.5rem; }
+.flight-route em { color: var(--gold); font-style: italic; }
+.flight-details { font-size: 0.8rem; color: var(--muted); line-height: 1.9; }
+.flight-details strong { color: var(--ink); }
+
+@media (max-width: 600px) {
+  .ov-row { grid-template-columns: 90px 1fr 50px; }
+  .ov-weather-strip { grid-template-columns: repeat(2, 1fr); }
+  .weather-grid { grid-template-columns: repeat(2, 1fr); }
+  header { padding: 2rem 1.25rem 1.75rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-eyebrow">April 1 – 13, 2026 &nbsp;·&nbsp; 13 Days &nbsp;·&nbsp; 3 Cities</div>
+  <h1>&#x1F338; <em>Asia</em> · Spring 2026</h1>
+  <div class="header-sub">Taipei &nbsp;·&nbsp; Tokyo &nbsp;·&nbsp; Kyoto</div>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab('overview',this)">Overview</div>
+  <div class="tab" onclick="showTab('taipei',this)">&#x1F1F9;&#x1F1FC; Taipei</div>
+  <div class="tab" onclick="showTab('tokyo',this)">&#x1F5FC; Tokyo</div>
+  <div class="tab" onclick="showTab('kyoto',this)">&#x26E9;&#xFE0F; Kyoto</div>
+  <div class="tab" onclick="showTab('transit',this)">&#x2708;&#xFE0F; Flights &amp; Transit</div>
+</div>
+
+<main>
+
+<div id="overview" class="city-section active">
+  <div class="section-label" style="margin-top:1.5rem">Spring Weather — Early April</div>
+  <div class="ov-weather-strip">
+    <div class="ov-wx-card">
+      <div class="ov-wx-flag">&#x1F1F9;&#x1F1FC;</div>
+      <div>
+        <div class="ov-wx-city">Taipei</div>
+        <div class="ov-wx-dates">Apr 2 – 4 · 2 nights</div>
+        <div class="ov-wx-temp">25°C / 77°F</div>
+        <div class="ov-wx-desc">Warm &amp; humid · afternoon showers possible · breezy evenings</div>
+      </div>
+    </div>
+    <div class="ov-wx-card">
+      <div class="ov-wx-flag">&#x1F5FC;</div>
+      <div>
+        <div class="ov-wx-city">Tokyo</div>
+        <div class="ov-wx-dates">Apr 4–7 &amp; Apr 10–13</div>
+        <div class="ov-wx-temp">16–22°C / 61–72°F</div>
+        <div class="ov-wx-desc">&#x1F338; Cherry blossom peak · mild &amp; breezy · light spring showers</div>
+      </div>
+    </div>
+    <div class="ov-wx-card">
+      <div class="ov-wx-flag">&#x26E9;&#xFE0F;</div>
+      <div>
+        <div class="ov-wx-city">Kyoto</div>
+        <div class="ov-wx-dates">Apr 7 – 10 · 3 nights</div>
+        <div class="ov-wx-temp">18–22°C / 64–72°F</div>
+        <div class="ov-wx-desc">&#x1F338; Cherry blossom peak · cool mornings · mostly sunny</div>
+      </div>
+    </div>
+  </div>
+  <div class="overview-grid">
+    <div class="ov-row" onclick="showTab('transit',document.querySelectorAll('.tab')[4])">
+      <div><div class="ov-date">Wed, Apr 1</div></div>
+      <div><div class="ov-city">Depart SFO</div><div class="ov-desc">United UA 871 · 1:55 PM · SFO to Taipei</div></div>
+      <div class="ov-dot-wrap"><span class="ov-wx">&#x2708;&#xFE0F;</span><div class="ov-dot dot-transit"></div></div>
+    </div>
+    <div class="ov-row" onclick="showTab('taipei',document.querySelectorAll('.tab')[1])">
+      <div><div class="ov-date">Thu, Apr 2</div></div>
+      <div><div class="ov-city">Arrive Taipei</div><div class="ov-desc">Songshan Airport 6:45 PM · Solaria Nishitetsu Hotel</div></div>
+      <div class="ov-dot-wrap"><span class="ov-wx">&#x1F306; 25°C</span><div class="ov-dot dot-taipei"></div></div>
+    </div>
+    <div class="ov-row" onclick="showTab('taipei',document.querySelectorAll('.tab')[1])">
+      <div><div class="ov-date">Fri, Apr 3</div></div>
+      <div><div class="ov-city">Taipei — Explore</div><div class="ov-desc">Longshan Temple · Taipei 101 · Night Market</div></div>
+      <div class="ov-dot-wrap"><span class="ov-wx">&#x1F324; 26°C</span><div class="ov-dot dot-taipei"></div></div>
+    </div>
+    <div class="ov-row" onclick="showTab('taipei',document.querySelectorAll('.tab')[1])">
+      <div><div class="ov-date">Sat, Apr 4</div></div>
+      <div><div class="ov-city">Taipei to Tokyo</div><div class="ov-desc">EVA Air BR190 · 4:20 PM · Arrive Haneda 8:05 PM</div></div>
+      <div class="ov-dot-wrap"><span class="ov-wx">&#x2708;&#xFE0F;</span><div class="ov-dot dot-transit"></div></div>
+    </div>
+    <div class="ov-row" onclick="showTab('tokyo',document.querySelectorAll('.tab')[2])">
+      <div><div class="ov-date">Sun, Apr 5</div></div>
+      <div><div class="ov-city">Tokyo — Asakusa &#x1F338;</div><div class="ov-desc">Senso-ji · Hoppy Street · Ueno Sakura Matsuri</div></div>
+      <div class="ov-dot-wrap"><span class="ov-wx">&#x1F338; 16°C</span><div class="ov-dot dot-tokyo"></div></div>
+    </div>
+    <div class="ov-row" onclick="showTab('tokyo',document.querySelectorAll('.tab')[2])">
+      <div><div class="ov-date">Mon, Apr 6</div></div>
+      <div><div class="ov-city">Tokyo — Shinjuku</div><div class="ov-desc">Omakase Lunch · Chidorigafuchi last night · Memory Lane</div></div>
+      <div class="ov-dot-wrap"><span class="ov-wx">&#x1F324; 17°C</span><div class="ov-dot dot-tokyo"></div></div>
+    </div>
+    <div class="ov-row" onclick="showTab('tokyo',document.querySelectorAll('.tab')[2])">
+      <div><div class="ov-date">Tue, Apr 7</div></div>
+      <div><div class="ov-city">Tokyo to Kyoto</div><div class="ov-desc">NOZOMI 251 · Departs 10:00 AM · Arrives 12:15 PM</div></div>
+      <div class="ov-dot-wrap"><span class="ov-wx">&#x1F684;</span><div class="ov-dot dot-transit"></div></div>
+    </div>
+    <div class="ov-row" onclick="showTab('kyoto',document.querySelectorAll('.tab')[3])">
+      <div><div class="ov-date">Wed, Apr 8</div></div>
+      <div><div class="ov-city">Kyoto — Arashiyama &#x1F338;</div><div class="ov-desc">Sagano Railway · Bamboo Forest · Nijo Castle · Kani Doraku</div></div>
+      <div class="ov-dot-wrap"><span class="ov-wx">&#x1F338; 18°C</span><div class="ov-dot dot-kyoto"></div></div>
+    </div>
+    <div class="ov-row" onclick="showTab('kyoto',document.querySelectorAll('.tab')[3])">
+      <div><div class="ov-date">Thu, Apr 9</div></div>
+      <div><div class="ov-city">Kyoto — Golden Pavilion</div><div class="ov-desc">Kinkaku-ji · Ryoan-ji · Yakitori Lunch · Sake Hall</div></div>
+      <div class="ov-dot-wrap"><span class="ov-wx">&#x2600;&#xFE0F; 19°C</span><div class="ov-dot dot-kyoto"></div></div>
+    </div>
+    <div class="ov-row" onclick="showTab('kyoto',document.querySelectorAll('.tab')[3])">
+      <div><div class="ov-date">Fri, Apr 10</div></div>
+      <div><div class="ov-city">Fushimi Inari to Tokyo</div><div class="ov-desc">NOZOMI 254 · 1:30 PM · Ginza Seafood Dinner</div></div>
+      <div class="ov-dot-wrap"><span class="ov-wx">&#x1F324; 19°C</span><div class="ov-dot dot-transit"></div></div>
+    </div>
+    <div class="ov-row" onclick="showTab('tokyo',document.querySelectorAll('.tab')[2])">
+      <div><div class="ov-date">Sat, Apr 11</div></div>
+      <div><div class="ov-city">Tokyo — Shinjuku</div><div class="ov-desc">Gyoen Garden · Isetan · Bluemen's Club 9 PM</div></div>
+      <div class="ov-dot-wrap"><span class="ov-wx">&#x2600;&#xFE0F; 20°C</span><div class="ov-dot dot-tokyo"></div></div>
+    </div>
+    <div class="ov-row" onclick="showTab('tokyo',document.querySelectorAll('.tab')[2])">
+      <div><div class="ov-date">Sun, Apr 12</div></div>
+      <div><div class="ov-city">Tokyo — Tsukiji &amp; Ginza</div><div class="ov-desc">Tsukiji Market · Ginza Shopping · The SG Club</div></div>
+      <div class="ov-dot-wrap"><span class="ov-wx">&#x2600;&#xFE0F; 21°C</span><div class="ov-dot dot-tokyo"></div></div>
+    </div>
+    <div class="ov-row" onclick="showTab('transit',document.querySelectorAll('.tab')[4])">
+      <div><div class="ov-date">Mon, Apr 13</div></div>
+      <div><div class="ov-city">Fly Home — SFO</div><div class="ov-desc">ZipAir ZG026 · Narita 9:30 PM to SFO Mon 2:45 PM</div></div>
+      <div class="ov-dot-wrap"><span class="ov-wx">&#x2708;&#xFE0F;</span><div class="ov-dot dot-transit"></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="taipei" class="city-section">
+  <div class="city-hero">
+    <div class="city-accent-bar bar-taipei"></div>
+    <div class="city-hero-text">
+      <h2>&#x1F1F9;&#x1F1FC; <em>Taipei</em></h2>
+      <div class="city-dates">April 2 – 4 · 2 nights · Solaria Nishitetsu Hotel Taipei Ximen · Wanhua District</div>
+    </div>
+  </div>
+  <div class="weather-card">
+    <div class="weather-card-title">Weather — Taipei · April 2–4</div>
+    <div class="weather-grid">
+      <div class="wx-item"><div class="wx-top"><span class="wx-icon">&#x1F321;&#xFE0F;</span><span class="wx-temp">25–27°C</span></div><div class="wx-label">Avg High</div><div class="wx-detail">Evenings ~22°C</div></div>
+      <div class="wx-item"><div class="wx-top"><span class="wx-icon">&#x1F327;&#xFE0F;</span><span class="wx-temp">20–30%</span></div><div class="wx-label">Rain Chance</div><div class="wx-detail">Afternoon showers possible</div></div>
+      <div class="wx-item"><div class="wx-top"><span class="wx-icon">&#x1F4A8;</span><span class="wx-temp">12–15 km/h</span></div><div class="wx-label">Wind</div><div class="wx-detail">Light sea breeze</div></div>
+      <div class="wx-item"><div class="wx-top"><span class="wx-icon">&#x2600;&#xFE0F;</span><span class="wx-temp">UV 6–7</span></div><div class="wx-label">UV Index</div><div class="wx-detail">High — use sunscreen</div></div>
+    </div>
+    <div class="wx-tip"><strong>Pack:</strong> Light breathable layers, compact rain jacket, sunscreen. April in Taipei is warm but afternoon showers are common. Comfortable walking shoes essential.</div>
+  </div>
+  <a class="hotel-chip" href="#">&#x1F3E8; Solaria Nishitetsu Hotel Taipei Ximen — 6F, No. 88 Sec. 1 Zhonghua Rd, Wanhua District &nbsp;·&nbsp; +886 2 2314 3939</a>
+
+  <div class="day-block">
+    <div class="day-block-header"><span class="day-pill">Thursday · Apr 2</span><span class="day-block-title">Arrive Taipei</span></div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">6:45 PM</div><div class="tl-title">Arrive — Taipei Songshan Airport</div><div class="tl-desc">United Airlines UA 871 from SFO. Pickup at Gate 23 — Kangaroo operator (+886-0916067678).<br>Conf: EXP-2369916811 · EXP-2369910823 · EXP-2369910826</div></div>
+      <div class="tl-item"><div class="tl-time">8:00 PM</div><div class="tl-title">Check In — Solaria Nishitetsu Hotel Ximen</div><div class="tl-desc">Hotel is on 6F — take elevator to lobby. Room 1: Thuy &amp; Mai · Room 2: Mom &amp; Xi · Room 3: Lani, Bang &amp; Rin.</div></div>
+      <div class="tl-item"><div class="tl-time">9:00 PM</div><div class="tl-title">Evening — Ximending</div><div class="tl-desc">The hotel opens onto Ximending — Taipei's lively youth district with street food, the historic Red House, and bubble tea.<br><br><strong>Dinner options:</strong><br>Din Tai Fung (Ximending) — world-famous xiaolongbao · book ahead · $$<br>Ximending Street Food — oyster omelette, scallion pancakes right outside · $</div></div>
+    </div>
+  </div>
+  <hr class="city-divider">
+
+  <div class="day-block">
+    <div class="day-block-header"><span class="day-pill">Friday · Apr 3</span><span class="day-block-title">Explore Taipei</span></div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">9:00 AM</div><div class="tl-title">Longshan Temple</div><div class="tl-desc">Taipei's oldest temple, built in 1738. Incense rituals, fortune sticks, and ornate dragon carvings.</div></div>
+      <div class="tl-item"><div class="tl-time">10:30 AM</div><div class="tl-title">Bopiliao Historic Block</div><div class="tl-desc">Beautifully preserved Qing Dynasty and Japanese colonial-era street near Longshan. Free entry.</div></div>
+      <div class="tl-item"><div class="tl-time">12:00 PM</div><div class="tl-title">Lunch — Ay-Chung Flour-Rice Noodle</div><div class="tl-desc">Legendary stall near Longshan Temple. Thick mee sua noodles in oyster broth — always a queue, always worth it. · $</div></div>
+      <div class="tl-item"><div class="tl-time">1:30 PM</div><div class="tl-title">Taipei 101</div><div class="tl-desc">World's fastest elevator to the 89th-floor observation deck. Panoramic city views and a Din Tai Fung in the basement.</div></div>
+      <div class="tl-item"><div class="tl-time">4:00 PM</div><div class="tl-title">National Palace Museum</div><div class="tl-desc">World's largest collection of Chinese imperial artifacts — the jade cabbage, ivory carvings, calligraphy. Allow 2–3 hours.</div></div>
+      <div class="tl-item"><div class="tl-time">7:00 PM</div><div class="tl-title">Yongkang Street &amp; Evening</div><div class="tl-desc">Charming pedestrian lane for souvenir shopping — pineapple cakes, teas, craft items.<br><br><strong>Dinner options:</strong><br>Din Tai Fung — famous xiaolongbao · $$ · book ahead<br>Shilin Night Market — giant fried chicken, oyster omelette, papaya milk · $</div></div>
+    </div>
+  </div>
+  <hr class="city-divider">
+
+  <div class="day-block">
+    <div class="day-block-header"><span class="day-pill">Saturday · Apr 4</span><span class="day-block-title">Taipei to Tokyo</span></div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">Morning</div><div class="tl-title">Final Taipei Morning</div><div class="tl-desc">Check out by noon. Grab pineapple cakes from Sunny Hills or SunCake near Yongkang — the quintessential Taipei souvenir.</div></div>
+      <div class="tl-item"><div class="tl-time">4:20 PM</div><div class="tl-title">Depart — EVA Air BR190</div><div class="tl-desc">E-ticket: 695-7383339796 · Booking ref: CSBZOD. Allow 90 min from Ximending to Taoyuan Airport.</div></div>
+      <div class="tl-item"><div class="tl-time">8:05 PM</div><div class="tl-title">Arrive Tokyo Haneda</div><div class="tl-desc">Private transfer pre-booked via airportstaxitransfer.com — Reserv# DT3112764462. Pickup at 9 PM, meet &amp; greet to Richmond Hotel Asakusa. $174.60 for 6 adults.</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="tokyo" class="city-section">
+  <div class="city-hero">
+    <div class="city-accent-bar bar-tokyo"></div>
+    <div class="city-hero-text">
+      <h2>&#x1F5FC; <em>Tokyo</em></h2>
+      <div class="city-dates">April 4–7 (Asakusa) &amp; April 10–13 (Shinjuku) · 6 nights total · Cherry blossom season &#x1F338;</div>
+    </div>
+  </div>
+  <div class="weather-card">
+    <div class="weather-card-title">Weather — Tokyo · Early April</div>
+    <div class="weather-grid">
+      <div class="wx-item"><div class="wx-top"><span class="wx-icon">&#x1F321;&#xFE0F;</span><span class="wx-temp">16–22°C</span></div><div class="wx-label">Avg High</div><div class="wx-detail">Evenings cool to 11–14°C</div></div>
+      <div class="wx-item"><div class="wx-top"><span class="wx-icon">&#x1F338;</span><span class="wx-temp">Peak Bloom</span></div><div class="wx-label">Cherry Blossoms</div><div class="wx-detail">Early April is peak — Ueno, Sumida, Shinjuku Gyoen</div></div>
+      <div class="wx-item"><div class="wx-top"><span class="wx-icon">&#x1F327;&#xFE0F;</span><span class="wx-temp">10–25%</span></div><div class="wx-label">Rain Chance</div><div class="wx-detail">Light spring showers possible</div></div>
+      <div class="wx-item"><div class="wx-top"><span class="wx-icon">&#x1F4A8;</span><span class="wx-temp">12–18 km/h</span></div><div class="wx-label">Wind</div><div class="wx-detail">Breezy — layers recommended</div></div>
+    </div>
+    <div class="wx-tip"><strong>Pack:</strong> Layers — mornings ~12°C, warm afternoons ~18–22°C. Light jacket essential. Compact umbrella wise. Comfortable shoes for 15,000+ steps/day.</div>
+  </div>
+
+  <div class="section-label">Stay 1 — Asakusa · Apr 4–7</div>
+  <a class="hotel-chip" href="#">&#x1F3E8; Richmond Hotel Premier Asakusa International — 2-6-7 Asakusa, Taito-ku &nbsp;·&nbsp; +81 3-5806-3155 &nbsp;·&nbsp; #KSE214340</a>
+
+  <div class="day-block">
+    <div class="day-block-header"><span class="day-pill">Saturday · Apr 4</span><span class="day-block-title">Arrive Tokyo</span></div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">8:05 PM</div><div class="tl-title">Arrive — Tokyo Haneda Airport</div><div class="tl-desc">EVA Air BR190 from Taipei. Private transfer meets at arrivals — Reserv# DT3112764462, pickup 9 PM meet &amp; greet.</div></div>
+      <div class="tl-item"><div class="tl-time">9:30 PM</div><div class="tl-title">Check In — Richmond Hotel Premier Asakusa</div><div class="tl-desc">Senso-ji Temple is a 3-min walk. Pick up a <strong>Suica card</strong> at Haneda arrivals (¥2,000 deposit) for all Tokyo transit.</div></div>
+      <div class="tl-item"><div class="tl-time">Late Night</div><div class="tl-title">Dinner — Ramen near Asakusa</div><div class="tl-desc">Multiple ramen shops within 5-min walk of the hotel. Perfect after a long travel day. · $$</div></div>
+    </div>
+  </div>
+  <hr class="city-divider">
+
+  <div class="day-block">
+    <div class="day-block-header"><span class="day-pill">Sunday · Apr 5</span><span class="day-block-title">Asakusa &amp; Cherry Blossom Festival</span></div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">9:00 AM</div><div class="tl-title">Senso-ji Temple &amp; Nakamise Shopping Street</div><div class="tl-desc">Tokyo's oldest temple — 3-min walk from the hotel. The massive Kaminarimon Gate with its giant red lantern is iconic. Walk Nakamise-dori for traditional crafts and sweets.</div></div>
+      <div class="tl-item"><div class="tl-time">11:00 AM</div><div class="tl-title">Hoppy Street (Hoppy Dori)</div><div class="tl-desc">80-meter nostalgic lane of outdoor izakaya pubs near Senso-ji. Affordable food and the namesake "Hoppy" drink — low-alcohol beer mixed with shochu.</div></div>
+      <div class="tl-item"><div class="tl-time">12:30 PM</div><div class="tl-title">Lunch — Ueno Sakura Matsuri Food Stalls</div><div class="tl-desc">Yakitori, tamagoyaki, grilled corn, and cold beer under cherry blossoms at Ueno Park. 5-min train from Asakusa. · $</div></div>
+      <div class="tl-item"><div class="tl-time">3:00 PM</div><div class="tl-title">Sumida Park — Cherry Blossom Viewing</div><div class="tl-desc">~600 cherry trees along the Sumida River with Tokyo Skytree views. <strong>Last night for illuminations — 18:00–21:00 tonight only.</strong></div></div>
+      <div class="tl-item"><div class="tl-time">5:00 – 10:00 PM</div><div class="tl-title">Ueno Park — Ueno Sakura Matsuri</div><div class="tl-desc">1,000+ trees and 800 hanging lanterns. <strong>Last day: April 5.</strong> Festival runs 10 AM–10 PM.</div></div>
+      <div class="tl-item"><div class="tl-time">Evening</div><div class="tl-title">Dinner — Asakusa</div><div class="tl-desc"><strong>Komakata Dojo</strong> — traditional loach hotpot, 200+ year history · dozeu.com · $$<br><strong>Nakamise Snacks</strong> — ningyo-yaki, senbei rice crackers · $</div></div>
+    </div>
+  </div>
+  <hr class="city-divider">
+
+  <div class="day-block">
+    <div class="day-block-header"><span class="day-pill">Monday · Apr 6</span><span class="day-block-title">Omakase Lunch, Shinjuku &amp; Chidorigafuchi</span></div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">9:00 AM</div><div class="tl-title">Shinjuku Gyoen National Garden</div><div class="tl-desc">60+ cherry blossom varieties. Three garden styles: Japanese, French, English. No alcohol. Open 9 AM. · ¥500 entry</div></div>
+      <div class="tl-item"><div class="tl-time">11:00 AM</div><div class="tl-title">Isetan Shinjuku &amp; Depachika</div><div class="tl-desc">Cherry blossom season bento from the basement food hall — beautifully curated Japanese lunch boxes.</div></div>
+      <div class="tl-item"><div class="tl-time">1:00 PM</div><div class="tl-title">Lunch — Mantensushi Nihonbashi · Omakase</div><div class="tl-desc">Chuo City, Nihonbashimuromachi, 2-3-1 Coredo Muromachi 2 1F, Tokyo. Tel: +81 3-3277-6045.</div><div class="tl-res">&#x2713; Reservation Confirmed</div></div>
+      <div class="tl-item"><div class="tl-time">3:00 PM</div><div class="tl-title">Tokyo Solamachi</div><div class="tl-desc">Shopping complex at the base of Tokyo Skytree. 300+ shops. Great for afternoon souvenir shopping.</div></div>
+      <div class="tl-item"><div class="tl-time">6:00 – 9:00 PM</div><div class="tl-title">Chidorigafuchi Moat — Last Night of Illuminations</div><div class="tl-desc">Cherry blossom "tunnel" over the moat near the Imperial Palace. <strong>Final night of illuminations — 18:00–21:00.</strong> Rental rowboats available (1–3 hr wait).</div></div>
+      <div class="tl-item"><div class="tl-time">9:00 PM</div><div class="tl-title">Memory Lane (Omoide Yokocho)</div><div class="tl-desc">Narrow Shinjuku alleyway packed with tiny yakitori pubs — each seating 5–8 people. Grilled skewers, cold Sapporo, Showa-era atmosphere. · $$</div></div>
+      <div class="tl-item"><div class="tl-time">Late Night</div><div class="tl-title">Optional — The SG Club</div><div class="tl-desc">World's 50 Best Bars No.10 (2020) · Asia's 50 Best No.3 (2021). 1-7-8 Jinnan, Shibuya. Tel: +81 50-3138-2618. Reserve via sg-management.jp · $$$$</div></div>
+    </div>
+  </div>
+  <hr class="city-divider">
+
+  <div class="day-block">
+    <div class="day-block-header"><span class="day-pill">Tuesday · Apr 7</span><span class="day-block-title">Tokyo to Kyoto by Shinkansen</span></div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">Morning</div><div class="tl-title">Check Out &amp; Head to Tokyo Station</div><div class="tl-desc">Pick up an ekiben (bento box) at Tokyo Station before boarding — a beloved Japanese travel tradition.</div></div>
+      <div class="tl-item"><div class="tl-time">10:00 AM</div><div class="tl-title">Shinkansen NOZOMI 251 — Tokyo to Kyoto</div><div class="tl-desc">A-seats face right — Mt. Fuji visible ~40 min after departure near Shin-Fuji Station.</div>
+        <div class="transport-box"><div class="route">Tokyo to Kyoto</div><strong>NOZOMI 251</strong> · Departs 10:00 AM · Arrives Kyoto 12:15 PM<br>Car 5 · Seats 13-A-C (Row 13) &amp; 14-A-C (Row 14)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:2.5rem">Stay 2 — Shinjuku · Apr 10–13</div>
+  <a class="hotel-chip" href="#">&#x1F3E8; Keio Plaza Hotel Tokyo — 2-2-1 Nishi-Shinjuku, Shinjuku-Ku &nbsp;·&nbsp; +81 3 3344 0111 &nbsp;·&nbsp; Conf# TC39D0251BFF1 (prepaid)</a>
+
+  <div class="day-block">
+    <div class="day-block-header"><span class="day-pill">Friday · Apr 10</span><span class="day-block-title">Return to Tokyo — Ginza Dinner</span></div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">1:30 PM</div><div class="tl-title">Shinkansen NOZOMI 254 — Kyoto to Tokyo</div><div class="tl-desc">See Kyoto tab for morning plans (Fushimi Inari 7 AM + Kiyomizu-dera). Arrives Tokyo 3:45 PM.</div>
+        <div class="transport-box"><div class="route">Kyoto to Tokyo</div><strong>NOZOMI 254</strong> · Departs Kyoto 1:30 PM · Arrives Tokyo 3:45 PM<br>Car 4 · Seats 17-A-C (Row 17) &amp; 18-A-C (Row 18)</div>
+      </div>
+      <div class="tl-item"><div class="tl-time">4:00 PM</div><div class="tl-title">Check In — Keio Plaza Hotel, Shinjuku</div><div class="tl-desc">Conf# TC39D0251BFF1 (Lani, 3 rooms, prepaid, free cancel by Apr 6). Apr 11–13: Xi booked 3 rooms. Heart of Shinjuku — 5-min walk to Gyoen.</div></div>
+      <div class="tl-item"><div class="tl-time">6:00 PM</div><div class="tl-title">Dinner — Seafood Buffet Dining Ginza Happo</div><div class="tl-desc">Chuo City, Ginza, 8 Chome-10, B1, Tokyo. Tel: +81 3-6264-6825.</div><div class="tl-res">&#x2713; Reservation Confirmed · 6:00 PM</div></div>
+    </div>
+  </div>
+  <hr class="city-divider">
+
+  <div class="day-block">
+    <div class="day-block-header"><span class="day-pill">Saturday · Apr 11</span><span class="day-block-title">Shinjuku &amp; Tokyo Nights</span></div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">9:00 AM</div><div class="tl-title">Shinjuku Gyoen National Garden</div><div class="tl-desc">Tokyo's most beautiful park — 58 ha of gardens. 60+ cherry blossom varieties. No alcohol. 10-min walk from hotel.</div></div>
+      <div class="tl-item"><div class="tl-time">11:30 AM</div><div class="tl-title">Isetan Shinjuku</div><div class="tl-desc">Legendary basement Depachika — perfect for food souvenirs and beautifully prepared Japanese lunch boxes.</div></div>
+      <div class="tl-item"><div class="tl-time">12:30 PM</div><div class="tl-title">Lunch — Fuunji Tsukemen</div><div class="tl-desc">Divine tsukemen (dipping ramen) near Shinjuku — rich, concentrated broth. One of Tokyo's best noodle spots. · $$</div></div>
+      <div class="tl-item"><div class="tl-time">4:00 PM</div><div class="tl-title">Tokyo Metropolitan Gov. Building — Free Views</div><div class="tl-desc">Free 45th-floor observation deck (243m). Open until 10:30 PM. 5-min walk from hotel.</div></div>
+      <div class="tl-item"><div class="tl-time">7:00 PM</div><div class="tl-title">Memory Lane (Omoide Yokocho)</div><div class="tl-desc">20+ tiny yakitori pubs in Shinjuku, each seating 5–8. Quintessential Tokyo evening. · $$</div></div>
+      <div class="tl-item"><div class="tl-time">9:00 PM</div><div class="tl-title">Bluemen's Club</div><div class="tl-desc">6-1 Arakicho, Arakicho Gardens 1F 101, Shinjuku-ku, Tokyo 160-0007. Tel: 03-5315-0995. Dining bar with craft beers &amp; cocktails.</div><div class="tl-res">&#x2713; Reservation Confirmed · 9:00 PM</div></div>
+    </div>
+  </div>
+  <hr class="city-divider">
+
+  <div class="day-block">
+    <div class="day-block-header"><span class="day-pill">Sunday · Apr 12</span><span class="day-block-title">Tsukiji, Ginza &amp; The SG Club</span></div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">8:00 AM</div><div class="tl-title">Tsukiji Outer Market</div><div class="tl-desc">150+ stalls of fresh seafood, sushi bars, tamagoyaki stalls, and kitchen knife shops. The best breakfast in Tokyo — go early.</div></div>
+      <div class="tl-item"><div class="tl-time">8:30 AM</div><div class="tl-title">Breakfast — Tsukiji Omakase Sushi</div><div class="tl-desc">Queue at opening for 8–12 pieces of the freshest fish available that morning. Worth every minute. · $$$</div></div>
+      <div class="tl-item"><div class="tl-time">11:00 AM</div><div class="tl-title">Ginza Shopping District</div><div class="tl-desc">Uniqlo flagship (12 storeys), Mitsukoshi department store, Apple Store. Sunday: Chuo-dori becomes a pedestrian zone.</div></div>
+      <div class="tl-item"><div class="tl-time">1:00 PM</div><div class="tl-title">Optional — Yokohama Day Trip</div><div class="tl-desc">30 min by train. Minato Mirai waterfront, Yokohama Chinatown, Shin-Yokohama Ramen Museum with 8 regional ramen stalls.</div></div>
+      <div class="tl-item"><div class="tl-time">8:00 PM</div><div class="tl-title">The SG Club — World's 50 Best Bars</div><div class="tl-desc">No.10 World's Best Bars (2020) · No.3 Asia's 50 Best (2021). 1-7-8 Jinnan, Shibuya. Tel: +81 50-3138-2618. Reserve via sg-management.jp · $$$$</div></div>
+    </div>
+  </div>
+  <hr class="city-divider">
+
+  <div class="day-block">
+    <div class="day-block-header"><span class="day-pill">Monday · Apr 13</span><span class="day-block-title">Fly Home to SFO</span></div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">Morning</div><div class="tl-title">Final Morning — Shinjuku</div><div class="tl-desc">Last convenience store breakfast. Check out by noon. <strong>Note:</strong> Mom's Da Nang flight departs 9 AM (separate transfer needed).</div></div>
+      <div class="tl-item"><div class="tl-time">6:00 PM</div><div class="tl-title">Depart for Narita Airport</div><div class="tl-desc">Narita Express (N'EX) from Shinjuku Station — 90 min, ¥3,070. Allow 2.5–3 hrs at airport.</div></div>
+      <div class="tl-item"><div class="tl-time">At Narita</div><div class="tl-title">Dinner &amp; Duty-Free</div><div class="tl-desc"><strong>Narita Ramen Street</strong> — Terminal 2, 4F. Fuunji tsukemen: the perfect last Japanese meal. · $$<br><strong>Duty-Free airside:</strong> Tokyo Banana, regional KitKats, Royce chocolate, Shiroi Koibito cookies.</div></div>
+      <div class="tl-item"><div class="tl-time">9:30 PM</div><div class="tl-title">Depart Narita — ZipAir ZG026</div><div class="tl-desc">ZipAir Flight ZG026 to SFO. Arrives SFO Monday April 14 at 2:45 PM. ZipAir requires online check-in 24 hrs before.</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="kyoto" class="city-section">
+  <div class="city-hero">
+    <div class="city-accent-bar bar-kyoto"></div>
+    <div class="city-hero-text">
+      <h2>&#x26E9;&#xFE0F; <em>Kyoto</em></h2>
+      <div class="city-dates">April 7 – 10 · 3 nights · The Royal Park Hotel Kyoto Sanjo · Cherry blossom peak &#x1F338;</div>
+    </div>
+  </div>
+  <div class="weather-card">
+    <div class="weather-card-title">Weather — Kyoto · April 7–10</div>
+    <div class="weather-grid">
+      <div class="wx-item"><div class="wx-top"><span class="wx-icon">&#x1F321;&#xFE0F;</span><span class="wx-temp">18–22°C</span></div><div class="wx-label">Avg High</div><div class="wx-detail">Cool mornings ~13°C</div></div>
+      <div class="wx-item"><div class="wx-top"><span class="wx-icon">&#x1F338;</span><span class="wx-temp">Peak Bloom</span></div><div class="wx-label">Cherry Blossoms</div><div class="wx-detail">Best in Japan — temples, shrines, canals</div></div>
+      <div class="wx-item"><div class="wx-top"><span class="wx-icon">&#x1F327;&#xFE0F;</span><span class="wx-temp">5–15%</span></div><div class="wx-label">Rain Chance</div><div class="wx-detail">Mostly sunny, dry conditions</div></div>
+      <div class="wx-item"><div class="wx-top"><span class="wx-icon">&#x2600;&#xFE0F;</span><span class="wx-temp">UV 5–6</span></div><div class="wx-label">UV Index</div><div class="wx-detail">Moderate — sunscreen needed</div></div>
+    </div>
+    <div class="wx-tip"><strong>Pack:</strong> Layers — mornings cool (~13°C), afternoons warm (~18–22°C). Light jacket for early shrine visits. Comfortable walking shoes critical — cobblestones at Higashiyama, slopes at Fushimi Inari.</div>
+  </div>
+  <a class="hotel-chip" href="#">&#x1F3E8; The Royal Park Hotel Kyoto Sanjo — 74 Nakajimacho, Nakagyo Ward, Kyoto &nbsp;·&nbsp; +81 75-241-1111 &nbsp;·&nbsp; Thuy: 1 room · Lani: 2 rooms</a>
+
+  <div class="day-block">
+    <div class="day-block-header"><span class="day-pill">Tuesday · Apr 7</span><span class="day-block-title">Arrive Kyoto</span></div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">12:15 PM</div><div class="tl-title">Arrive Kyoto Station — NOZOMI 251</div><div class="tl-desc">Short taxi from Kyoto Station to hotel. Check-in typically 3 PM — hotel can store luggage if arriving early.</div></div>
+      <div class="tl-item"><div class="tl-time">2:00 PM</div><div class="tl-title">Nishiki Market</div><div class="tl-desc">"Kyoto's Kitchen" — 400m covered arcade with pickles, tofu, fishcakes, dashi, and street snacks. 10-min walk from the hotel.</div></div>
+      <div class="tl-item"><div class="tl-time">5:00 PM</div><div class="tl-title">Optional — Fushimi Inari Taisha (Evening)</div><div class="tl-desc">1,000 vermilion torii gates up Mt. Inari. At dusk the gates glow and crowds thin. 25 min by train from hotel.</div></div>
+      <div class="tl-item"><div class="tl-time">Evening</div><div class="tl-title">Dinner — Arrival Night</div><div class="tl-desc"><strong>Nishiki Market snacks</strong> — fresh skewers, pickled vegetables, matcha sweets · $<br><strong>Local izakaya near hotel</strong> — Nakagyo-ku district has excellent casual dining · $$</div></div>
+    </div>
+  </div>
+  <hr class="city-divider">
+
+  <div class="day-block">
+    <div class="day-block-header"><span class="day-pill">Wednesday · Apr 8</span><span class="day-block-title">Sagano Railway &amp; Arashiyama</span></div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">9:00 AM</div><div class="tl-title">Transit to Torokko Saga Station</div><div class="tl-desc">30 min by public transit to JR Saga-Arashiyama Station next to Torokko Saga Station. Depart hotel by 9:00 AM.</div></div>
+      <div class="tl-item"><div class="tl-time">10:02 AM</div><div class="tl-title">Sagano Scenic Railway — Torokko Train</div><div class="tl-desc">The "Romantic Train" through Hozukyo River Gorge — cherry blossom scenery from the open-air carriage. 30 min route to Kameoka.</div><div class="tl-res">&#x2713; Booked · Carriage 5 (open-air) · Seats 12B &amp; 12C</div></div>
+      <div class="tl-item"><div class="tl-time">11:30 AM</div><div class="tl-title">Arashiyama Bamboo Forest</div><div class="tl-desc">Famous bamboo corridor — 5-min walk from Torokko Saga Station. Soaring dense stalks that block the sky.</div></div>
+      <div class="tl-item"><div class="tl-time">1:00 PM</div><div class="tl-title">Togetsu-kyo Bridge &amp; Riverside</div><div class="tl-desc">Iconic arched bridge over the Oi River surrounded by cherry blossoms. Rent a rowboat for ¥1,500/hr.</div></div>
+      <div class="tl-item"><div class="tl-time">2:00 PM</div><div class="tl-title">Lunch — Arashiyama Street Food</div><div class="tl-desc">Mitarashi dango, matcha soft serve, yudofu from stalls along the main lane. · $</div></div>
+      <div class="tl-item"><div class="tl-time">6:00 – 10:00 PM</div><div class="tl-title">Nijo Castle — Cherry Blossom Illumination</div><div class="tl-desc">Ornate Edo-period shogun palace with "nightingale floors." Cherry blossom illumination around the castle grounds, 6–10 PM. Entrance near Nijoho Mae Station.</div></div>
+      <div class="tl-item"><div class="tl-time">6:45 PM</div><div class="tl-title">Dinner — Kani Doraku Kyoto Honten</div><div class="tl-desc">525 Tenshojimaecho, Nakagyo Ward, Kyoto 604-8081. Tel: +81 75-211-0671. Kyoto's celebrated crab restaurant.</div><div class="tl-res">&#x2713; Reservation Confirmed · 6:45 PM</div></div>
+    </div>
+  </div>
+  <hr class="city-divider">
+
+  <div class="day-block">
+    <div class="day-block-header"><span class="day-pill">Thursday · Apr 9</span><span class="day-block-title">Golden Pavilion &amp; Zen Gardens</span></div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">9:00 AM</div><div class="tl-title">Kinkaku-ji — Golden Pavilion</div><div class="tl-desc">Zen Buddhist temple covered in gold leaf, reflected in the surrounding pond. Arrive at opening to beat tour groups. 25 min by bus from hotel.</div></div>
+      <div class="tl-item"><div class="tl-time">11:00 AM</div><div class="tl-title">Ryoan-ji Rock Garden</div><div class="tl-desc">World's most famous Zen rock garden — 15 rocks in raked white gravel. 25-min walk from Kinkaku-ji.</div></div>
+      <div class="tl-item"><div class="tl-time">12:30 PM</div><div class="tl-title">Lunch — Yakitori Kushikura Main Branch</div><div class="tl-desc">584 Hiiragicho, Takakura-dori Oikeagaru, Nakagyo-ku, Kyoto. Tel: 075-213-2211. Traditional charcoal-grilled yakitori.</div><div class="tl-res">&#x2713; Reservation Confirmed · 12:30 PM</div></div>
+      <div class="tl-item"><div class="tl-time">2:30 PM</div><div class="tl-title">Nishiki Market — Afternoon Flex</div><div class="tl-desc">10-min walk from hotel — tofu skewers, pickled plum, dashimaki tamago, matcha sweets. Great between lunch and dinner.</div></div>
+      <div class="tl-item"><div class="tl-time">6:45 PM</div><div class="tl-title">Dinner — Sake Hall Masuya</div><div class="tl-desc">298-2 Takoyakushi-dori Karasuma-Higashi-iru Ichirenshacho, Nakagyo-ku, Kyoto. Tel: 075-708-7747. Extensive sake selection with Japanese small plates.</div><div class="tl-res">&#x2713; Reservation Confirmed · 6:45 PM</div></div>
+    </div>
+  </div>
+  <hr class="city-divider">
+
+  <div class="day-block">
+    <div class="day-block-header"><span class="day-pill">Friday · Apr 10</span><span class="day-block-title">Fushimi Inari &amp; Departure to Tokyo</span></div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">7:00 AM</div><div class="tl-title">Fushimi Inari Taisha — Early Morning</div><div class="tl-desc">1,000 torii gates — most picturesque spot in Kyoto. Early morning is magical with almost no crowds. Hike to Yotsutsuji intersection for panoramic views. 25 min by train from hotel.</div></div>
+      <div class="tl-item"><div class="tl-time">10:00 AM</div><div class="tl-title">Kiyomizu-dera Temple</div><div class="tl-desc">One of the oldest Buddhist temples perched on wooden stilts with panoramic Kyoto views. 30-min walk from hotel. Leave by noon for the train.</div></div>
+      <div class="tl-item"><div class="tl-time">11:30 AM</div><div class="tl-title">Check Out &amp; Head to Kyoto Station</div><div class="tl-desc">Pick up a Kyoto-style ekiben at Kyoto Station — "Hana Chirashi" or "Tori Gohan" are local favorites.</div></div>
+      <div class="tl-item"><div class="tl-time">1:30 PM</div><div class="tl-title">Shinkansen NOZOMI 254 — Kyoto to Tokyo</div><div class="tl-desc">Arrives Tokyo 3:45 PM. Check in to Keio Plaza Hotel, Shinjuku.</div>
+        <div class="transport-box"><div class="route">Kyoto to Tokyo</div><strong>NOZOMI 254</strong> · Departs Kyoto 1:30 PM · Arrives Tokyo 3:45 PM<br>Car 4 · Seats 17-A-C (Row 17) &amp; 18-A-C (Row 18)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="transit" class="city-section">
+  <div class="city-hero">
+    <div class="city-accent-bar bar-transit"></div>
+    <div class="city-hero-text">
+      <h2>&#x2708;&#xFE0F; <em>Flights &amp; Transit</em></h2>
+      <div class="city-dates">All bookings, confirmation numbers &amp; transportation details</div>
+    </div>
+  </div>
+
+  <div class="section-label">International Flights</div>
+
+  <div class="flight-card">
+    <div class="flight-route">SFO &rarr; <em>Taipei</em></div>
+    <div class="flight-details"><strong>United Airlines UA 871</strong><br>Departs SFO: <strong>Wednesday, April 1 @ 1:55 PM</strong><br>Arrives: Taipei Songshan Airport, Thursday April 2 @ 6:45 PM<br>Pickup at Gate 23 — Kangaroo operator: <strong>+886-0916067678</strong><br>Conf: EXP-2369916811 · EXP-2369910823 · EXP-2369910826</div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-route">Taipei &rarr; <em>Tokyo</em></div>
+    <div class="flight-details"><strong>EVA Air BR190</strong><br>Departs Taipei: <strong>Saturday, April 4 @ 4:20 PM</strong><br>Arrives: Tokyo Haneda @ 8:05 PM<br>E-ticket: 695-7383339796 · Booking ref: <strong>CSBZOD</strong><br><br><strong>Airport Transfer (Pre-booked):</strong> airportstaxitransfer.com<br>Reserv# DT3112764462 · Pickup 9 PM · Meet &amp; greet · $174.60 for 6 adults</div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-route">Tokyo &rarr; <em>SFO</em></div>
+    <div class="flight-details"><strong>ZipAir ZG026</strong><br>Departs Narita: <strong>Monday, April 13 @ 9:30 PM</strong><br>Arrives: SFO, Monday April 14 @ 2:45 PM<br>Depart Keio Plaza Hotel by <strong>6:00 PM</strong> · Narita Express (N'EX) from Shinjuku: 90 min, ¥3,070<br>ZipAir requires online check-in 24 hrs before departure</div>
+  </div>
+
+  <div class="section-label">Mom's Separate Flights</div>
+
+  <div class="flight-card">
+    <div class="flight-route">Tokyo &rarr; <em>Da Nang</em></div>
+    <div class="flight-details">Departs: <strong>Monday, April 13 @ 9:00 AM</strong><br>Separate airport transfer required (different from group)</div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-route">Da Nang &rarr; <em>SFO</em></div>
+    <div class="flight-details"><strong>EVA Airways</strong><br>Departs Da Nang: <strong>Thursday, April 30 @ 12:55 PM</strong></div>
+  </div>
+
+  <div class="section-label">Shinkansen</div>
+
+  <div class="flight-card">
+    <div class="flight-route">Tokyo &rarr; <em>Kyoto</em></div>
+    <div class="flight-details"><strong>NOZOMI 251</strong><br>Departs Tokyo: <strong>Tuesday, April 7 @ 10:00 AM</strong> &rarr; Arrives Kyoto: 12:15 PM<br>Car 5 · Row 13: Seats A-C &nbsp;·&nbsp; Row 14: Seats A-C<br><em>A-seats face right — Mt. Fuji visible ~40 min from departure near Shin-Fuji Station</em></div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-route">Kyoto &rarr; <em>Tokyo</em></div>
+    <div class="flight-details"><strong>NOZOMI 254</strong><br>Departs Kyoto: <strong>Friday, April 10 @ 1:30 PM</strong> &rarr; Arrives Tokyo: 3:45 PM<br>Car 4 · Row 17: Seats A-C &nbsp;·&nbsp; Row 18: Seats A-C</div>
+  </div>
+
+  <div class="section-label">Hotels</div>
+
+  <div class="flight-card">
+    <div class="flight-route">&#x1F1F9;&#x1F1FC; Taipei &nbsp;<em>· Apr 2–4</em></div>
+    <div class="flight-details"><strong>Solaria Nishitetsu Hotel Taipei Ximen</strong><br>6F, No. 88, Section 1, Zhonghua Rd, Wanhua District, Taipei<br>Tel: +886 2 2314 3939<br>Conf: EXP-2369916811 (Thuy/Mai) · EXP-2369910823 · EXP-2369910826 (Lani/Bang/Rin)</div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-route">&#x1F5FC; Tokyo Stay 1 &nbsp;<em>· Apr 4–7</em></div>
+    <div class="flight-details"><strong>Richmond Hotel Premier Asakusa International</strong><br>2-6-7 Asakusa, Taito-ku, Tokyo 111-0032<br>Tel: +81 3-5806-3155 &nbsp;·&nbsp; Booking #KSE214340</div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-route">&#x26E9;&#xFE0F; Kyoto &nbsp;<em>· Apr 7–10</em></div>
+    <div class="flight-details"><strong>The Royal Park Hotel Kyoto Sanjo</strong> (&#x30ED;&#x30A4;&#x30E4;&#x30EB;&#x30D1;&#x30FC;&#x30AF;&#x30DB;&#x30C6;&#x30EB;&#x4EAC;&#x90FD;&#x4E09;&#x6761;)<br>74 Nakajimacho, Nakagyo Ward, Kyoto, 604-8004<br>Tel: +81 75-241-1111<br>Thuy: 1 room &nbsp;·&nbsp; Lani: 2 rooms</div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-route">&#x1F5FC; Tokyo Stay 2 &nbsp;<em>· Apr 10–13</em></div>
+    <div class="flight-details"><strong>Keio Plaza Hotel Tokyo</strong><br>2-2-1 Nishi-Shinjuku, Shinjuku-Ku, Tokyo 160-8330<br>Tel: +81 3 3344 0111<br>Conf# TC39D0251BFF1 (Lani, 3 rooms, prepaid, free cancel by Apr 6)<br>Apr 11–13: Xi booked 3 rooms separately</div>
+  </div>
+
+  <div class="section-label">Room Assignments</div>
+
+  <div class="flight-card">
+    <div class="flight-details"><strong>Room 1:</strong> Thuy, Mai<br><strong>Room 2:</strong> Mom, Xi<br><strong>Room 3:</strong> Lani, Bang, Rin</div>
+  </div>
+</div>
+
+</main>
+
+<script>
+function showTab(id, el) {
+  document.querySelectorAll('.city-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (el) el.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
